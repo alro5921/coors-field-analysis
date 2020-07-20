@@ -14,7 +14,7 @@ def season_half_win_rates(team_df):
     second_half_months = [7,8,9]
     first_half = team_df[team_df.date.dt.month.isin(first_half_months)]
     second_half = team_df[team_df.date.dt.month.isin(second_half_months)]
-    return first_half.mean(), second_half.mean()
+    return first_half['win'].mean(), second_half['win'].mean()
 
 
 def home_road_win_ratio(team_df):
@@ -59,13 +59,30 @@ if __name__ == '__main__':
         plt.style.use('ggplot')
         plt.xticks(rotation=60, size = 20)
         plt.yticks(size = 20)
-        plt.title("Team Home Win/Away Win ratio from 2000-2019", size = 30)
+        plt.title("Team Home/Away Winrate Ratio from 2000-2019", size = 30)
         plt.ylabel("Home/Away Win Ratio", size = 20)
         colors = ['purple' if team == 'COL' else 'gray' for team in X]
         plt.bar(X, Y, color = colors)
         plt.ylim(1,1.5)
+        plt.savefig('../images/ratio_plot.png')
         plt.show()
-    col_15_19 = rs_pl.team_data_pipeline(2000,2019,'COL')
-    away = col_15_19[col_15_19.home]
-    season_half_win_rates(away)
-    trip_win_rates(away)
+    test2 = True
+    if test2:
+        col_15_19 = rs_pl.team_data_pipeline(2000,2019,'COL')
+        home = col_15_19[col_15_19.home]
+        away = col_15_19[~col_15_19.home]
+        f_a, s_a = season_half_win_rates(away)
+        f_h, s_h = season_half_win_rates(home)
+        ind = np.arange(2)
+        width = .2
+        plt.figure(figsize=(10,10))
+        plt.style.use('ggplot')
+        plt.bar(ind - width/2, [f_a,f_h], width)
+        plt.bar(ind + width/2, [s_a,s_h], width)
+        plt.xticks(ind, labels = ('Away', 'Home'))
+        plt.ylabel("Winrate", size = 16)
+        plt.title("First Half vs Second Half Winrates")
+        plt.savefig('../images/fs_halves.png')
+        plt.show()
+        
+    #trip_win_rates(away)
