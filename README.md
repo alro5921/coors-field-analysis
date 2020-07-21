@@ -11,16 +11,17 @@ I'd like to investigate two topics; how exactly playing at Coors Field creates t
 
 ### Scope
 
-I'm restricting data from 2000 onwards, since the Rockies ownership implemented several stadium and ball changes to attempt to decrease the runs scored, most notably the humidor. Yes, it used to be even worse!
+I'm restricting data from 2002 onwards, since the Rockies ownership implemented several stadium and ball changes to attempt to decrease the runs scored, most notably the humidor. Yes, it used to be even worse!
 
 ## Data
 
-Schedule data, which contain the aggregate stats of each game, was taken from [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Their data was quite clean, my data cleaning basically consisted of adding headers (with [their reference](https://www.retrosheet.org/gamelogs/glfields.txt)) and dropping (many!) extraenous columns.   And as they request:
+Schedule data, which contain the aggregate stats of each game, was taken from [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Their data was quite clean, my data cleaning basically consisted of adding headers (with [their reference](https://www.retrosheet.org/gamelogs/glfields.txt)) and dropping (many!) extraenous columns.
 
 The information used here was obtained free of
 charge from and is copyrighted by Retrosheet.  Interested
 parties may contact Retrosheet at "www.retrosheet.org".
 
+With 2002-2018, we have about 2900 games and 1450 games of Away and Home games.
 
 Statcast pitch-by-pitch data was obtained from Baseball Savant. Statcast has only been tracked to 2008, so any pitch by pitch analysis will be restricted from there.
 
@@ -44,9 +45,9 @@ One hypothesis is that Rockies players are especially fatigued from playing at a
 
 NOTE: Apparently 56% of Rockies September games are home games. As that'd be an obvious confounder given the huge difference in home/away winrate, I partitioned this into home/away.
 
-![](images/fs_halves.png)
+<img src="images/fs_halves.png" width="500" height="500" />
 
-We do see a significant drop in the away winrate between the first half and second half of the season, but oddly enough the home winrate actually rose.
+We do see a significant drop in the away winrate between the first half and second half of the season, but oddly enough the home winrate actually rose. A fatigue thing would work regardless of where they're playing.
 
 ## Home/Away Tradeoff (Rougher)
 
@@ -62,5 +63,7 @@ QUOTE FROM ATHLETIC:
 "Yeah hitting away sucks at first lmao" - Charlie Blackmon
 
 ![](images/trip_effect.png)
+
+(this graph sucks fix it)
 
 This tenatively contradicts the idea of an adjustment period. This could still be a long term thing, where playing at Coors throws off perception for longer than a road trip can "reset".

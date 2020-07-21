@@ -47,9 +47,9 @@ def trip_win_rates(team_df):
 
 if __name__ == '__main__':
     
-    test = False
+    test = True
     if test:
-        league_home_road = league_home_road_ratios(2000,2019, TEAM_CODES)
+        league_home_road = league_home_road_ratios(2002,2019, TEAM_CODES)
         print(league_home_road)
         league_home_road.sort(key = lambda p: p[1], reverse = True)
         X = [point[0] for point in league_home_road]
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         plt.style.use('ggplot')
         plt.xticks(rotation=60, size = 20)
         plt.yticks(size = 20)
-        plt.title("Team Home/Away Winrate Ratio from 2000-2019", size = 30)
+        plt.title("Team Home/Away Winrate Ratio from 2002-2019", size = 30)
         plt.ylabel("Home/Away Win Ratio", size = 20)
         colors = ['purple' if team == 'COL' else 'gray' for team in X]
         plt.bar(X, Y, color = colors)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         plt.show()
     test2 = True
     if test2:
-        col_15_19 = rs_pl.team_data_pipeline(2000,2019,'COL')
+        col_15_19 = rs_pl.team_data_pipeline(2002,2019,'COL')
         home = col_15_19[col_15_19.home]
         away = col_15_19[~col_15_19.home]
         f_a, s_a = season_half_win_rates(away)
