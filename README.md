@@ -49,9 +49,11 @@ NOTE: Apparently 56% of Rockies September games are home games. As that'd be an 
 
 We do see a significant drop in the away winrate between the first half and second half of the season, but oddly enough the home winrate actually rose. A fatigue thing would work regardless of where they're playing.
 
-## Home/Away Tradeoff (Rougher)
+## Home/Away Tradeoff? (Rougher)
 
 Hypothesis: There's a tradeoff between home/away prowess, training towards one detracts from the other. Was a big anti-correlation in home/away winrate in group by months, also the gap is smaller in April (after Spring Training done at a lower altitude field).
+
+Other hand, I don't see an obvious mechanism for why this'd vary month by month. Salient features.
 
 
 ## Adjustment
