@@ -1,6 +1,6 @@
-<img src="images/Coors_Pana.jpg" width="800" height="400" />
+<img src="images/Coors_Pana.jpg" width="700" height="350" />
 
-# Coors Field Analysis
+# Coors Field Altitude Analysis
 
 ## Introduction
 

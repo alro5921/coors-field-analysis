@@ -23,14 +23,14 @@ def set_style(ax):
 def bold_COL_label(labels):
     return ["{coo"]
 
-def grouped_bar_frame(ax, vals, group_names, legend_names):
+def grouped_bar_frame(ax, vals, group_names, legend_names, colors):
     '''Plots framework for a grouped bar plot (to be fine tuned in the scope above)'''
 
     width = .2
     ind = np.arange(len(vals))
     arr = np.array(vals)
-    ax.bar(ind - width/2, arr[:,0], width, label = legend_names[0])
-    ax.bar(ind + width/2, arr[:,1], width, label = legend_names[1])
+    ax.bar(ind - width/2, arr[:,0], width, label = legend_names[0], color = colors[0])
+    ax.bar(ind + width/2, arr[:,1], width, label = legend_names[1], color = colors[1])
     ax.set_xticks(ind)
     ax.set_xticklabels(group_names)
     ax.legend(prop=dict(size=18))
@@ -105,7 +105,7 @@ def create_halfs_chart(ax, team_df):
     home, away = team_df[team_df.home],team_df[~team_df.home]
     away_d, home_d = (retrosheet_data_analysis.season_half_win_rates(away),
                     retrosheet_data_analysis.season_half_win_rates(home) )
-    grouped_bar_frame(ax, [home_d,away_d], ["Home", "Away"], ["First Half", "Second Half"])
+    grouped_bar_frame(ax, [home_d,away_d], ["Home", "Away"], ["First Half", "Second Half"], colors = ['#13866d', '#ba8f0d'])
     
     ax.set_ylim(0,.6)
     ax.set_yticks(np.arange(0, .6, step=0.125))
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     seasons_02_19 = SeasonalRetrosheetData(years)
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
 
-    #print(plt.rcParams['axes.prop_cycle'].by_key()['color'])
+    #['#E24A33', '#348ABD', '#988ED5', '#777777', '#FBC15E', '#8EBA42', '#FFB5B8']
 
     generate_wl = False
     if generate_wl:
@@ -144,14 +144,14 @@ if __name__ == '__main__':
         create_ha_ratio(ax, seasons_02_19)
         save_image("wl_ratio")
 
-    generate_halves = False
+    generate_halves = True
     if generate_halves:
         col_15_19 = col_rs_data.get_years(list(range(2002,2020)))
         fig, ax = plt.subplots(figsize=(10,10))
         create_halfs_chart(ax, col_15_19)
         save_image("halves")
 
-    generate_m_winrates = True
+    generate_m_winrates = False
     if generate_m_winrates:
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
@@ -171,6 +171,5 @@ if __name__ == '__main__':
         fig, ax = plt.subplots(figsize=(12,10))
         col_all = col_rs_data.get_all()
         create_trip_fall_off(ax, col_rs_data.get_all())
-        plt.show()
         save_image("road_trip_runs")
 

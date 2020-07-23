@@ -33,16 +33,21 @@ class SeasonalRetrosheetData:
                 rs_path = f'https://www.retrosheet.org/gamelogs/gl{year}.zip' 
                 df = pd.read_csv(rs_path, header = None)
                 df.to_csv(local_path)
-            except:
-                print("RS data not found at retrosheet path:", rs_path)
+            except FileNotFoundError:
+                print(f'Retrosheet data not found at retrosheet.com {rs_path}, skipping {year}...')
         return df
 
+
     def clean_retrosheet_df(self, retro_df):
-        retro_df = retro_df[[0,3,6,9,10]].copy()
-        retro_df.columns = ["date", "away_team", "home_team", "away_score", "home_score"]
-        retro_df["home_win"] = retro_df["home_score"] > retro_df["away_score"]
-        retro_df["date"] = pd.to_datetime(retro_df["date"], format='%Y%m%d')
-        return retro_df
+        cleaned_df = retro_df[[0,3,6,9,10]].copy()
+        cleaned_df.columns = ["date", "away_team", "home_team", "away_score", "home_score"
+                            ]
+        cleaned_df["home_win"] = cleaned_df["home_score"] > cleaned_df["away_score"]
+        cleaned_df["date"] = pd.to_datetime(cleaned_df["date"], format='%Y%m%d')
+        cleaned_df[["hits"]] = retro_df[[22]]
+        cleaned_df[["doubles","triples","homeruns"]] = retro_df[[23,24,25]]
+        cleaned_df["singles"] = cleaned_df["hits"] - (cleaned_df["doubles"] + cleaned_df["triples"] + cleaned_df["homeruns"])
+        return cleaned_df
 
     def get_years_in_data(self):
         return list(self.year_dfs.keys())
@@ -127,10 +132,10 @@ class TeamRetrosheetData:
         return self.get_years(self.get_years_in_data())
 
 if __name__ == '__main__':
-    years = list(range(2002,2020))
+    years = list(range(2002,2019 + 1))
     seasons_02_19 = SeasonalRetrosheetData(years)
-    print(seasons_02_19.get_years_in_data())
     agg = seasons_02_19.get_all()
+    print(agg.head(), agg.tail())
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
     agg_col = col_rs_data.get_all()
-    print(agg_col.head(), agg_col.tail())
+
