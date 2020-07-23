@@ -88,7 +88,7 @@ class TeamRetrosheetData:
         team_df = team_df.reset_index()
         team_df['game_in_season'] = team_df.index
         self.add_trip_lengths(team_df)
-        return team_df[['game_in_season', 'date', 'home', 'score', 'win']]
+        return team_df[['game_in_season', 'date', 'home', 'game_in_trip', 'score', 'win']]
 
     def add_trip_lengths(self, team_df):
         ret_df = team_df
@@ -102,7 +102,7 @@ class TeamRetrosheetData:
                 is_home = ret_df.loc[i,'home']
             length += 1    
             ret_df.loc[i,'game_in_trip'] = length
-        return ret_df[['date', 'home', 'game_in_trip', 'win', 'score']]
+        return ret_df
 
 
     def add_seasonal_rs_data(self, seasonal_rs_data, overwrite = False):

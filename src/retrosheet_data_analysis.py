@@ -42,7 +42,7 @@ def home_road_win_corr(team_df):
     gb_home_month = team_df.groupby([team_df.home, team_df.date.dt.month])
     mean_gb = gb_home_month.mean()
     monthly_avg_win = pd.DataFrame()
-    #Excluding March and October, which typically have 1-2 games a SEASON
+    #Excluding March and October, which typically have 1-2 games per season
     monthly_avg_win['home'] = mean_gb['win'][True][[4,5,6,7,8,9]]
     monthly_avg_win['away'] = mean_gb['win'][False][[4,5,6,7,8,9]]
     corr = monthly_avg_win.corr()
@@ -62,9 +62,9 @@ def league_home_road_ratios(seasonal_data, team_names):
         ratio_arr.append([team, home_road_win_ratio(team_df)])
     return ratio_arr
 
-def trip_win_rates(team_df):
-    gb_trip_length = team_df.groupby(team_df.game_in_trip)
-    return gb_trip_length.mean()['win']
+def trip_scores(team_df):
+    gb_trip_length = team_df.groupby([team_df.home, team_df.game_in_trip])
+    return gb_trip_length.mean()['score'][True], gb_trip_length.mean()['score'][False]
 
 if __name__ == '__main__':
     pass #Was formerly hosting all the graphing, should add simple tests when time

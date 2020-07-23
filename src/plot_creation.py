@@ -46,9 +46,48 @@ def league_one_bar_frame(ax, team_list, data, title, ylabel):
     colors = ['purple' if team == 'COL' else 'gray' for team in team_list]
     ax.bar(team_list, data, color = colors)
 
-def month_line_frame(ax, data, title, ylabel):
+def line_frame(ax, data, x_labels = None, color = 'purple', label = ''):
+    if not x_labels:
+        x_labels = np.arange(1,len(data) + 1)
+    ax.scatter(x_labels, data, color = color, label = label)
+    ax.plot(x_labels, month_labels, data, color = color, 
+            linestyle = "--", alpha = .3)
+
+def month_line_frame(ax, data, color = 'purple', label = ''):
     month_labels = ["April", "May", "June", 
                     "July", "August", "September"]
+    ax.scatter(month_labels, data, color = color, label = label)
+    ax.plot(month_labels, data, color = color, 
+            linestyle = "--", alpha = .3)
+
+def create_trip_fall_off(ax, data):
+    _, away_data = retrosheet_data_analysis.trip_scores(data)
+    away_data = away_data[:8]
+    X = np.arange(1,len(away_data) + 1)
+    m, b = np.polyfit(X, np.array(away_data), 1)
+    fit_line = lambda x: m*x + b
+
+    ax.scatter(X, away_data, color = 'purple')
+    ax.plot(X, away_data, color = 'purple', 
+            linestyle = "--", alpha = .3)
+    ax.plot(X, fit_line(X), linestyle = "-", alpha = .8, color = 'k', label = f'Fit, \nb = {b:.3f},\n m = {m:.3f}')
+    ax.tick_params(axis = 'both', labelsize = 15)
+    ax.set_ylabel("Runs Scored", size = 20)
+    ax.set_ylim(3.75, 4.25)
+    ax.set_yticks(np.arange(3.75, 4.30, step=0.05))
+    ax.set_title("Average Runs Scored In Xth Game Of Road Trip", size = 20)
+    ax.legend(fontsize = 15)
+
+
+def create_monthly_win_rate(ax, y):
+    month_line_frame(ax,y['Away'], color = 'blue', label = 'Away')
+    month_line_frame(ax,y['Home'], color = 'orange', label = 'Home')
+    
+    ax.axhline(y = .5, color = 'k', linestyle = "--")
+    ax.legend(fontsize = 15, loc = 'lower right')
+    ax.tick_params(axis = 'both', labelsize = 15)
+    ax.set_ylabel("Winrate", size = 30)
+    ax.set_title("Rockies Winrate by Month", size = 30)
 
 
 def create_ha_ratio(ax, seasonal_rs, team_codes = TEAM_CODES):
@@ -96,21 +135,35 @@ if __name__ == '__main__':
     years = list(range(2000,2020))
     seasons_02_19 = SeasonalRetrosheetData(years)
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
-    test1 = False
-    if test1:
+    generate_1 = False
+    if generate_1:
         #seasons_15_19 = seasons_02_19.get_years(list(range(2002,2020)))
         fig, ax = plt.subplots(figsize=(20,12))
         create_ha_ratio(ax, seasons_02_19)
         save_image("wl_ratio")
-    test2 = False
-    if test2:
+    generate_2 = False
+    if generate_2:
         col_15_19 = col_rs_data.get_years(list(range(2002,2020)))
         fig, ax = plt.subplots(figsize=(10,10))
         create_halfs_chart(ax, col_15_19)
         save_image("halves")
-    test3 = True
-    if test3:
+    generate_3 = False
+    if generate_3:
         fig, ax = plt.subplots(figsize=(20,12))
         create_corrs(ax, seasons_02_19)
         save_image("monthly_corrs")
+    generate_4 = False
+    if generate_4:
+        fig, ax = plt.subplots(figsize=(10,10))
+        col_all = col_rs_data.get_all()
+        y = retrosheet_data_analysis.home_road_monthly_winrate(col_all)
+        create_monthly_win_rate(ax, y)
+        save_image("monthly_winrates")
+    generate_5 = True
+    if generate_5:
+        fig, ax = plt.subplots(figsize=(10,10))
+        col_all = col_rs_data.get_all()
+        create_trip_fall_off(ax, col_rs_data.get_all())
+        plt.show()
+        #save_image("road_trip_winrates")
 
