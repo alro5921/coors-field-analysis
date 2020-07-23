@@ -104,7 +104,7 @@ Pitches move differently at Coors Field, particually curveball and "junk" ball p
 >A pitch follows a peculiar path in the high elevation of Coors Field, but that is Blackmon’s normal. He knows how the arc of a pitch will perform in his home park. He honed that ability over time while watching tens of thousands of pitches there. But the day Blackmon leaves Denver for any of the 25 other cities in the major leagues, the baseball behaves differently...  
 >“It’s amazing to see what guys can catch up to. Guys throw 100 now, but people can hit it,” Blackmon said. “It’s amazing what big-league players can do if they see it every day and become accustomed to it. It’s amazing what the level of play has become because the competition is getting so good, right? So for all those reasons, it’s very hard to have a ball act a certain way at altitude, and then have it act noticeably different the very next day when we go on the road."
 
-<img src="images/road_trip_runs.png" width="600" height="600" />
+<img src="images/road_trip_runs.png" width="720" height="600" />
 
 There's actually a slight downward trend, although it's not signficant. 
 

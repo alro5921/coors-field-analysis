@@ -168,7 +168,7 @@ if __name__ == '__main__':
 
     generate_trip_winrates = True
     if generate_trip_winrates:
-        fig, ax = plt.subplots(figsize=(10,10))
+        fig, ax = plt.subplots(figsize=(12,10))
         col_all = col_rs_data.get_all()
         create_trip_fall_off(ax, col_rs_data.get_all())
         plt.show()
