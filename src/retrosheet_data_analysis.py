@@ -66,5 +66,13 @@ def trip_scores(team_df):
     gb_trip_length = team_df.groupby([team_df.home, team_df.game_in_trip])
     return gb_trip_length.mean()['score'][True], gb_trip_length.mean()['score'][False]
 
+def chi_squared_test():
+    pass
+
 if __name__ == '__main__':
+    years = list(range(2000,2019 + 1))
+    seasons_02_19 = SeasonalRetrosheetData(years)
+    
+    team_rs_data = seasons_02_19.get_team_rs_data()
+    col_data = team_rs_data["COL"]
     pass #Was formerly hosting all the graphing, should add simple tests when time

@@ -68,7 +68,7 @@ I had initially partitioned this into home/away because 56% of Rockies September
 We do see a significant drop in the away winrate between the first half and second half of the season, but oddly enough the home winrate actually rose. A fatigue thing would work regardless of where they're playing. Looking at the month by month data:
 
 
-<img src="images/monthly_winrates.png" width="800" height="500" />
+<img src="images/monthly_winrates.png" width="600" height="600" />
 
 What we see is not a slow decline from the first half to the second half, but a very strong April road performance (relatively) followed by more uniform performance for the rest of the season.
 
@@ -101,13 +101,10 @@ Nonetheless, it's an interesting pattern that seems to at least waggle its eyes 
 
 Pitches move differently at Coors Field, particually curveball and "junk" ball pitches. Players have had difficulty adjusting to sea level pitches:
 
-QUOTE FROM ATHLETIC:
+>A pitch follows a peculiar path in the high elevation of Coors Field, but that is Blackmon’s normal. He knows how the arc of a pitch will perform in his home park. He honed that ability over time while watching tens of thousands of pitches there. But the day Blackmon leaves Denver for any of the 25 other cities in the major leagues, the baseball behaves differently.
+>“It’s amazing to see what guys can catch up to. Guys throw 100 now, but people can hit it,” Blackmon said. “It’s amazing what big-league players can do if they see it every day and become accustomed to it. It’s amazing what the level of play has become because the competition is getting so good, right? So for all those reasons, it’s very hard to have a ball act a certain way at altitude, and then have it act noticeably different the very next day when we go on the road."
 
-"Yeah hitting away sucks at first lmao" - Charlie Blackmon
-
-![](images/road_trip_winrates.png)
-
-(this graph sucks fix it)
+<img src="images/road_trip_winrates.png" width="600" height="600" />
 
 There's actually a slight downward trend, although it's not signficant. 
 

@@ -56,7 +56,7 @@ def line_frame(ax, data, x_labels = None, color = 'purple', label = ''):
 def month_line_frame(ax, data, color = 'purple', label = ''):
     month_labels = ["April", "May", "June", 
                     "July", "August", "September"]
-    ax.scatter(month_labels, data, color = color, label = label)
+    ax.scatter(month_labels, data, color = color, label = label, s = 30)
     ax.plot(month_labels, data, color = color, 
             linestyle = "--", alpha = .3)
 
@@ -108,7 +108,7 @@ def create_halfs_chart(ax, team_df):
     grouped_bar_frame(ax, [home_d,away_d], ["Home", "Away"], ["First Half", "Second Half"])
     
     ax.set_ylim(0,.6)
-    ax.set_yticks(np.arange(0, .6, step=0.1))
+    ax.set_yticks(np.arange(0, .6, step=0.125))
     ax.tick_params(axis = 'both', labelsize = 20)
     ax.set_ylabel("Winrate", size = 16)
     ax.set_title("First Half vs Second Half Winrates", size = 30)
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     seasons_02_19 = SeasonalRetrosheetData(years)
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
 
-    print(plt.rcParams['axes.prop_cycle'].by_key()['color'])
+    #print(plt.rcParams['axes.prop_cycle'].by_key()['color'])
 
     generate_wl = False
     if generate_wl:
@@ -157,7 +157,7 @@ if __name__ == '__main__':
         col_all = col_rs_data.get_all()
         y = retrosheet_data_analysis.home_road_monthly_winrate(col_all)
         create_monthly_win_rate(ax, y)
-        plt.show()
+        #plt.show()
         save_image("monthly_winrates")
 
     generate_corrs = False
@@ -167,11 +167,11 @@ if __name__ == '__main__':
         save_image("monthly_corrs")
 
 
-    generate_trip_winrates = False
+    generate_trip_winrates = True
     if generate_trip_winrates:
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
         create_trip_fall_off(ax, col_rs_data.get_all())
-        plt.show()
-        #save_image("road_trip_winrates")
+        #plt.show()
+        save_image("road_trip_winrates")
 
