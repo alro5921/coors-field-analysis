@@ -1,4 +1,6 @@
-# coors-field-analysis
+<img src="images/Coors_Pana.jpg" width="800" height="400" />
+
+# Coors Field Analysis
 
 ## Introduction
 
@@ -25,7 +27,7 @@ My schedule data was taken from [Retrosheets Gamelogs](https://www.retrosheet.or
 
 I've restricted my analysis to the 2002 onwards, as the Rockies implemented several stadium and ball changes to attempt to decrease the runs scored (most notably a humidor). That cut the games to about 50,000 games and 1,450 games at Coors Field.
 
-The data was complete and comprhes
+The data was complete and comprhes. The fields of interest 
 
 Schedule data, which contain the aggregate stats of each game, was taken from [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Their data was quite clean, my data cleaning basically consisted of adding headers (with [their reference](https://www.retrosheet.org/gamelogs/glfields.txt)) and dropping (many!) extraenous columns.
 
@@ -35,7 +37,9 @@ Schedule data, which contain the aggregate stats of each game, was taken from [R
 
 With 2002-2018, we have about 2900 games and 1450 games of Away and Home games at Coors.
 
+<!---
 Statcast pitch-by-pitch data was obtained from Baseball Savant. Statcast has only been tracked to 2008, so any pitch by pitch analysis will be restricted from there.
+-->
 
 ## (Loss) Effect Size
 
@@ -63,7 +67,8 @@ I had initially partitioned this into home/away because 56% of Rockies September
 
 We do see a significant drop in the away winrate between the first half and second half of the season, but oddly enough the home winrate actually rose. A fatigue thing would work regardless of where they're playing. Looking at the month by month data:
 
-![](images/monthly_winrates.png)
+
+<img src="images/monthly_winrates.png" width="800" height="500" />
 
 What we see is not a slow decline from the first half to the second half, but a very strong April road performance (relatively) followed by more uniform performance for the rest of the season.
 

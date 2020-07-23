@@ -80,8 +80,8 @@ def create_trip_fall_off(ax, data):
 
 
 def create_monthly_win_rate(ax, y):
-    month_line_frame(ax,y['Away'], color = 'blue', label = 'Away')
-    month_line_frame(ax,y['Home'], color = 'orange', label = 'Home')
+    month_line_frame(ax,y['Away'], color = '#348ABD', label = 'Away')
+    month_line_frame(ax,y['Home'], color = '#E24A33', label = 'Home')
     
     ax.axhline(y = .5, color = 'k', linestyle = "--")
     ax.legend(fontsize = 15, loc = 'lower right')
@@ -135,32 +135,40 @@ if __name__ == '__main__':
     years = list(range(2000,2020))
     seasons_02_19 = SeasonalRetrosheetData(years)
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
-    generate_1 = False
-    if generate_1:
-        #seasons_15_19 = seasons_02_19.get_years(list(range(2002,2020)))
+
+    print(plt.rcParams['axes.prop_cycle'].by_key()['color'])
+
+    generate_wl = False
+    if generate_wl:
         fig, ax = plt.subplots(figsize=(20,12))
         create_ha_ratio(ax, seasons_02_19)
         save_image("wl_ratio")
-    generate_2 = False
-    if generate_2:
+
+    generate_halves = False
+    if generate_halves:
         col_15_19 = col_rs_data.get_years(list(range(2002,2020)))
         fig, ax = plt.subplots(figsize=(10,10))
         create_halfs_chart(ax, col_15_19)
         save_image("halves")
-    generate_3 = False
-    if generate_3:
-        fig, ax = plt.subplots(figsize=(20,12))
-        create_corrs(ax, seasons_02_19)
-        save_image("monthly_corrs")
-    generate_4 = False
-    if generate_4:
+
+    generate_m_winrates = True
+    if generate_m_winrates:
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
         y = retrosheet_data_analysis.home_road_monthly_winrate(col_all)
         create_monthly_win_rate(ax, y)
+        plt.show()
         save_image("monthly_winrates")
-    generate_5 = True
-    if generate_5:
+
+    generate_corrs = False
+    if generate_corrs:
+        fig, ax = plt.subplots(figsize=(20,12))
+        create_corrs(ax, seasons_02_19)
+        save_image("monthly_corrs")
+
+
+    generate_trip_winrates = False
+    if generate_trip_winrates:
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
         create_trip_fall_off(ax, col_rs_data.get_all())
