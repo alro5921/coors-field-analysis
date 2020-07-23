@@ -7,7 +7,15 @@ charge from and is copyrighted by Retrosheet.  Interested
 parties may contact Retrosheet at "www.retrosheet.org".
 '''
 
+TEAM_CODES = ['SLN', 'MIN', 'CLE', 'CHA', 'TOR', 'TEX', 'ANA', 'BAL', 'SFN',
+       'PIT', 'SDN', 'ATL', 'COL', 'BOS', 'NYN', 'KCA', 'DET', 'SEA',
+       'HOU', 'LAN', 'CHN', 'TBA', 'NYA', 'OAK', 'MIA', 'CIN',
+       'PHI', 'ARI', 'MIL']
+
 class SeasonalRetrosheetData:
+    """Fetches and processes retrosheet data on a seasonal (year by year) level, outputting either the cleaned dataframes
+    or a team-specific data processors (TeamRetrosheetData class)
+    """
     
     def __init__(self, years):
         self.year_dfs = {}
@@ -45,21 +53,27 @@ class SeasonalRetrosheetData:
                 retro_df = self.get_retrosheet_season(year)
                 self.year_dfs[year] = self.clean_retrosheet_df(retro_df)
 
+    #Returns the seperate year DFs instead of merging them into one list
     def get_years_seperate(self):
         return self.year_dfs
 
     def get_years(self, years):
-        return pd.concat([self.year_dfs[year] for year in years]).reset_index()
+        return pd.concat([self.year_dfs[year] for year in years]).reset_index(drop = True)
 
     def get_all(self, years = None):
         return self.get_years(self.get_years_in_data())
 
-    def get_teams_rs_data(self, team_codes = None):
+    def get_team_rs_data(self, team_codes = None):
         if not team_codes:
-            pass
+            team_codes = TEAM_CODES
+        elif isinstance(team_codes, str):
+            return TeamRetrosheetData(team_codes, self)
+        return {team : TeamRetrosheetData(team, self) for team in team_codes}
 
 class TeamRetrosheetData:
-
+    """Extracts and processes team-specific seasonal info from a Seasonal class
+    """
+    
     def __init__(self, team_code, seasonal_rs_data):
         self.team_code = team_code.upper()
         self.year_dfs = {}
@@ -76,6 +90,21 @@ class TeamRetrosheetData:
         self.add_trip_lengths(team_df)
         return team_df[['game_in_season', 'date', 'home', 'score', 'win']]
 
+    def add_trip_lengths(self, team_df):
+        ret_df = team_df
+        ret_df['game_in_trip'] = 1
+        is_home = True
+        length = 0
+        #I cry, but I don't see a way to vectorize this?
+        for i in range(len(team_df)):
+            if is_home != ret_df.loc[i,'home']:
+                length = 0
+                is_home = ret_df.loc[i,'home']
+            length += 1    
+            ret_df.loc[i,'game_in_trip'] = length
+        return ret_df[['date', 'home', 'game_in_trip', 'win', 'score']]
+
+
     def add_seasonal_rs_data(self, seasonal_rs_data, overwrite = False):
         for year in seasonal_rs_data.get_years_in_data():
             if year not in self.year_dfs or overwrite:
@@ -88,24 +117,11 @@ class TeamRetrosheetData:
     def get_years_in_data(self):
         return self.year_dfs.keys()
 
-    def add_trip_lengths(self, team_df):
-        ret_df = team_df
-        ret_df['game_in_trip'] = 1
-        is_home = True
-        length = 0
-        for i in range(len(team_df)): #I cry, but I don't see a way to vectorize this?
-            if is_home != ret_df.loc[i,'home']:
-                length = 0
-                is_home = ret_df.loc[i,'home']
-            length += 1    
-            ret_df.loc[i,'game_in_trip'] = length
-        return ret_df[['date', 'home', 'game_in_trip', 'win', 'score']]
-
     def get_years_seperate(self):
         return self.year_dfs
 
     def get_years(self, years):
-        return pd.concat([self.year_dfs[year] for year in years]).reset_index()
+        return pd.concat([self.year_dfs[year] for year in years]).reset_index(drop = True)
 
     def get_all(self):
         return self.get_years(self.get_years_in_data())

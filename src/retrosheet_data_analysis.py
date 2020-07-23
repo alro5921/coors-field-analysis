@@ -8,6 +8,24 @@ TEAM_CODES = ['SLN', 'MIN', 'CLE', 'CHA', 'TOR', 'TEX', 'ANA', 'BAL', 'SFN',
        'HOU', 'LAN', 'CHN', 'TBA', 'NYA', 'OAK', 'MIA', 'CIN',
        'PHI', 'ARI', 'MIL']
 
+month_dict = {3: "March", 4 : "April", 5 : "May",
+            6: "June", 7 : "July", 8 : "August",
+            9: "September", 10: "October"}
+
+def home_road_monthly_winrate(team_df, remove_march_oct = True):
+    team_gb_h_month = team_df.groupby([team_df.home, team_df.date.dt.month])
+    gb_mean = team_gb_h_month.mean()
+    y = pd.DataFrame()
+    y['Home'] = gb_mean['win'][True]
+    y['Away'] = gb_mean['win'][False]
+    y = y.drop(3, errors = 'ignore').drop(10, errors = 'ignore')
+    return y
+
+def home_road_chi_squared(team_df):
+    team_gb_h_month = team_df.groupby([team_df.home, team_df.date.dt.month])
+    team_gb_h_month = team_df
+
+
 def season_half_win_rates(team_df):
     is_half = team_df['game_in_season'] < 82
     first_half, second_half = team_df[is_half], team_df[~is_half]
