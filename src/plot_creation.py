@@ -56,7 +56,7 @@ def line_frame(ax, data, x_labels = None, color = 'purple', label = ''):
 def month_line_frame(ax, data, color = 'purple', label = ''):
     month_labels = ["April", "May", "June", 
                     "July", "August", "September"]
-    ax.scatter(month_labels, data, color = color, label = label, s = 30)
+    ax.scatter(month_labels, data, color = color, label = label, s = 90)
     ax.plot(month_labels, data, color = color, 
             linestyle = "--", alpha = .3)
 
@@ -157,7 +157,6 @@ if __name__ == '__main__':
         col_all = col_rs_data.get_all()
         y = retrosheet_data_analysis.home_road_monthly_winrate(col_all)
         create_monthly_win_rate(ax, y)
-        #plt.show()
         save_image("monthly_winrates")
 
     generate_corrs = False
@@ -172,6 +171,6 @@ if __name__ == '__main__':
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
         create_trip_fall_off(ax, col_rs_data.get_all())
-        #plt.show()
-        save_image("road_trip_winrates")
+        plt.show()
+        save_image("road_trip_runs")
 
