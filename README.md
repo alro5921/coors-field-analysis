@@ -40,7 +40,7 @@ We do see a significant drop in the Away winrate between the first half and seco
 
 <img src="images/monthly_winrates.png" width="600" height="500" />
 
-Which suggests that the first/second half Road difference was mainly caused by an abnormally strong April performance, followed by a consistent (bad) performance for the rest of the season. We can use a <img src="https://render.githubusercontent.com/render/math?math=\chi^2"> test to check the signifiance of this strong April road performance, and that test does t April Away performance is significant at <img src="https://render.githubusercontent.com/render/math?math=\alpha"> = .05, <img src="https://render.githubusercontent.com/render/math?math=\chi^2">(1, N = 1498) = 5.93, p = .015.
+Which suggests that the first/second half Road difference was mainly caused by an abnormally strong April performance, followed by a consistent (bad) performance for the rest of the season. We can use a <img src="https://render.githubusercontent.com/render/math?math=\chi^2"> test to check the signifiance of this strong April road performance relative to the rest of the season, and that does suggest the performance is significant at <img src="https://render.githubusercontent.com/render/math?math=\alpha"> = .05, <img src="https://render.githubusercontent.com/render/math?math=\chi^2">(1, N = 1498) = 5.93, p = .015.
 
 (There doesn't seem to be any similiar trend in the Home data, and a quick <img src="https://render.githubusercontent.com/render/math?math=\chi^2"> test supports this (<img src="https://render.githubusercontent.com/render/math?math=\chi^2">(5, N = 1498) = 4.32, p = .505)
 
