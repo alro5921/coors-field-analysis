@@ -1,6 +1,6 @@
 <img src="images/Coors_Pana.jpg" width="850" height="425" />
 
-# Coors Field Analysis: Impact on Play In Other Parks
+# Coors Field Analysis
 
 ## Motivation
 
