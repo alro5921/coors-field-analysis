@@ -72,9 +72,8 @@ class SeasonalRetrosheetData:
         return {team : TeamRetrosheetData(team, self) for team in team_codes}
 
 class TeamRetrosheetData:
-    '''Extracts and processes team-specific seasonal info from a Seasonal class
-    '''
-    
+    '''Extracts and processes team-specific seasonal info from a Seasonal class'''
+
     def __init__(self, team_code, seasonal_rs_data):
         self.team_code = team_code.upper()
         self.year_dfs = {}

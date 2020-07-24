@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import scipy.stats as stats
 
 from retrosheet_pipeline import SeasonalRetrosheetData, TeamRetrosheetData
 from constants import TEAM_CODES, MONTH_DICT
@@ -12,11 +13,6 @@ def home_road_monthly_winrate(team_df, remove_march_oct = True):
     y['Away'] = gb_mean['win'][False]
     y = y.drop(3, errors = 'ignore').drop(10, errors = 'ignore')
     return y
-
-def home_road_chi_squared(team_df):
-    team_gb_h_month = team_df.groupby([team_df.home, team_df.date.dt.month])
-    team_gb_h_month = team_df
-
 
 def season_half_win_rates(team_df):
     is_half = team_df['game_in_season'] < 82
@@ -64,16 +60,25 @@ def from_coors_trip_scores(team_df):
     game_range = list(range(1,games_out + 1))
     return gb_gfcoors.mean()['win'][game_range] ,gb_gfcoors.count()['win'][game_range]
 
-def chi_squared_test():
-    pass
 
 if __name__ == '__main__':
     years = list(range(2002,2019 + 1))
     seasons_02_19 = SeasonalRetrosheetData(years)
     team_rs_data = seasons_02_19.get_team_rs_data()
+    col_rs_data = team_rs_data['COL']
+    
     df_list = []
     for team in team_rs_data:
         df_list.append(team_rs_data[team].get_all())
     agg = pd.concat(df_list)
     print(from_coors_trip_scores(agg))
+
+    #Calculate chi squareds
+    col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
+    wins = col_gb_h_month.sum()['win'][True].drop(10)
+    total = col_gb_h_month.count()['win'][True].drop(10)
+    losses = total - wins
+    contig_table = np.array([list(wins), list(losses)])
+    print(stats.chi2_contingency(contig_table))
+
 
