@@ -1,12 +1,13 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rc
+from matplotlib import rc, rcParams
 
 import retrosheet_data_analysis
 from retrosheet_pipeline import SeasonalRetrosheetData, TeamRetrosheetData
 from constants import TEAM_CODES
 
+rcParams.update({'figure.autolayout': True})
 plt.style.use('ggplot')
 
 def save_image(name, folder_path = '../images'):
@@ -115,8 +116,8 @@ if __name__ == '__main__':
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
 
     generate_wl = False
-    generate_halves = False
-    generate_m_winrates = False
+    generate_halves = True
+    generate_m_winrates = True
     generate_corrs = False
     generate_trip_winrates = True
 
