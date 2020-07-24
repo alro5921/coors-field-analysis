@@ -1,6 +1,6 @@
 <img src="images/Coors_Pana.jpg" width="850" height="425" />
 
-# Coors Field Analysis
+# Coors Field Analysis: How Playing At Altitude Affects Road Performance
 
 ## Motivation
 
