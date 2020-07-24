@@ -20,7 +20,7 @@ I also restricted my analysis to the 2002 season onwards, as the Rockies impleme
 
 Every baseball team (and indeed most sports teams) perform worse at visiting stadiums, whether that's from travel fatigue or unfamiliarity with a stadiums' quirks or unconcious umpire bias. The Major League Baseball "home field advantage" is roughly .54, that is the Home team wins 54% of the time. But the Colorado Rockies perform especially badly relative to their home performance; between 2002-2018, they won about 54% of their games at Coors Field but just 39% of their games away from it!
 
-I compared between teams by taking the ratio of their Home winrate and Away winrate, or how much more likely a team is to win at their Home Field. For example, the league as a whole would have a .54/.46 ~ 1.17 ratio and wins 17% more often at Home.
+I compared how Home reliant teams were by taking the ratio of their Home winrate and Away winrate, or how much more likely a team is to win at their Home Field. For example, the league as a whole would have a .54/.46 ~ 1.17 ratio and wins 17% more often at Home.
 
 ![](images/wl_ratio.png)
 
