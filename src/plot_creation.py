@@ -72,7 +72,7 @@ def create_monthly_win_rate(ax, y):
     ax.legend(fontsize = 25)
     ax.tick_params(axis = 'both', labelsize = 25)
     ax.set_ylabel("Winrate", size = 30)
-    ax.set_title("Rockies Winrate by Month", size = 30)
+    ax.set_title("Rockies Winrate by Month, 2002-2019", size = 25)
 
 def create_home_away_ratio(ax, seasonal_rs, team_codes = TEAM_CODES):
     league_home_road = retrosheet_data_analysis.league_home_road_ratios(seasonal_rs, team_codes)
@@ -80,7 +80,7 @@ def create_home_away_ratio(ax, seasonal_rs, team_codes = TEAM_CODES):
     X = [point[0] for point in league_home_road]
     Y = [point[1] for point in league_home_road]
     
-    title = "Team Home/Away Winrate Ratio from 2002-2019"
+    title = "Team Home/Away Winrate Ratio, 2002-2019"
     ylabel = "Home/Away Win Ratio"
     league_one_bar_frame(ax, X, Y, title, ylabel)
     ax.set_ylim(1,1.5)
@@ -116,10 +116,10 @@ if __name__ == '__main__':
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
 
     generate_wl = False
-    generate_halves = True
+    generate_halves = False
     generate_m_winrates = True
     generate_corrs = False
-    generate_trip_winrates = True
+    generate_trip_winrates = False
 
     if generate_wl:
         fig, ax = plt.subplots(figsize=(20,12))

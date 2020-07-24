@@ -1,51 +1,34 @@
 <img src="images/Coors_Pana.jpg" width="850" height="425" />
 
-# Coors Field Analysis
+# Coors Field Analysis: Impact on Play In Other Parks
 
 ## Motivation
 
 Coors Field is the highest elevation Major League Baseball stadium in the league. Coors Field is at 5200 ft elevation, with the next closest being Arizona's Chase Field at just 1100 ft and the vast majority being within 300 ft of sea level. The thinner and drier air significantly impacts how the ball moves, significantly benefitting the batters; Coors Field is consistently the run leader in the MLB.
 
-Unfortunately, this seems to have a negative impact on Rockies players when they play outside of Coors Field. Iternalizing how pitches move at high altitude may not translate well to other MLB parks, and more aggressive batting styles that produce "borderline" hits at Coors may produce outs elsewhere. 
-
-I'd like to investigate two topics; how strongly playing at Coors produces a negative effect on the road, and what exactly is creating these these disadvantages.
+Unfortunately, this seems to have a negative impact on Rockies players when they play outside of Coors Field. Internalizing how pitches move at high altitude may not translate well to other Major League parks, and more aggressive batting styles that produce "borderline" hits at Coors may produce outs elsewhere. I want to explore exactly how much playing at Coors Fields affects performance at other stadiums, and if possible extract what exactly is causing the effect.
 
 ## Data
 
-I worked primarily with schedule data taken from Retrosheets, [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Each row contains aggregate stats from a major league baseball game; each team's score, how many hits and what type of hits each team had, who the home and visiting teams were (and w) umpires and their positioning. These contained about 63,000 games since the Rockies' debut in 1993, or about 2,100 at Coors Field* itself.
+I worked mainly with schedule data taken from Retrosheet's [Gamelogs Dataset](https://www.retrosheet.org/gamelogs/index.html), which records the game-by-game data of every MLB game since 1870. Each row records aggregate information about a major league baseball game, such as the runs (points) earned by each team, how many hits and the type of hits each team had, who the home and visiting teams were, and so forth. The dataset is basically comprehensive for the timeframe I'm working with (the Rockies didn't exist back in 1880!) with 63,000 games recorded since the Rockies' debut in 1993 and about 2,100 at Coors Field itself. 
 
-Which is sort of astounding considering multiple 
+The most relevant features for my purposes were the scoring data, the hitting data
 
-I've restricted my analysis to the 2002 season onwards, as the Rockies implemented several stadium and ball changes to decrease the runs scored (most notably a humidor). That cut the games to about 50,000 games and 1,450 games at Coors Field.
-
-The data was complete and comprhes. The fields of interest 
+I also restricted my analysis to the 2002 season onwards; the Rockies implemented several stadium and ball changes to decrease the runs scored (most notably a [humidor](https://en.wikipedia.org/wiki/Humidor) room for the baseballs) at the start of that season, which makes pre-2002 Coors Field data less relevant to the modern situation. That cut the dataset down to about 50,000 games total and 1,450 games at Coors Field.
 
 Schedule data, which contain the aggregate stats of each game, was taken from [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Their data was quite clean, my data cleaning basically consisted of adding headers (with [their reference](https://www.retrosheet.org/gamelogs/glfields.txt)) and dropping (many!) extraenous columns.
-
->The information used here was obtained free of
->charge from and is copyrighted by Retrosheet.  Interested
->parties may contact Retrosheet at "www.retrosheet.org".
-
-With 2002-2018, we have about 2900 games and 1450 games of Away and Home games at Coors.
-
-*Well, 125 of those games were played at the Bronco's Mile High Stadium as Coors Field was being constructed.
 
 <!---
 Statcast pitch-by-pitch data was obtained from Baseball Savant. Statcast has only been tracked to 2008, so any pitch by pitch analysis will be restricted from there.
 -->
 
-## Coors Effect
->*There is no folly of the beast of the earth which is not infinitely outdone by the madness of Coors \[Field\].*  
->                                       - Atlanta Braves Commentator
-
-
-## How strong is the effect?
+## The Effect Size on the Road
 
 Every baseball team performs worse at visiting stadiums; the visting team is using unfamiliar accomodations and has been travelling, umpires  the league wide "home field advantage" is roughly 54%.
 
 The Colorado Rockies perform especially badly relative to their home performance. Between 2002-2018, they won about 54% of their games at Coors Field but less than 40% of their games away from it!
 
-Consider took the ratio of each team's winrate at home and a team's winrate on the road. A team with the league average home advantage would have a .54/.46 ~ 1.17 ratio, or would win 17% more games on home than on the road.
+Consider took the ratio of each team's winrate at home and a team's winrate on the road. A team with the league average home advantage would have a .54/.46 ~ 1.17 ratio, or would win 17% more games on home than on the road. 
 
 ![](images/wl_ratio.png)
 
@@ -53,9 +36,9 @@ The Colorado Rockies are a huge outlier, winning almost 40% more games at home t
 
 # Fatigue
  
-One hypothesis is that high altitude play especially fatigues the body. 
+One hypothesis is that regular high altitude play tires out Rockies players more quickly than those (usually) playing at sea level, which might be further This'd be reflected as a slow decline in performance as the season goes on. Loo
 
-NOTE: I split this analysis into home/away because 56% of Rockies September games are home games, which would be a huge confounder given the difference in home/away winrates.
+NOTE: I split this analysis into home/away because 56% of Rockies September games are home games, which would be a huge confounder given the Home/Away winrates!
 
 <img src="images/halves.png" width="500" height="500" />
 
@@ -63,14 +46,11 @@ We do see a significant drop in the Away winrate between the first half and seco
 
 <img src="images/monthly_winrates.png" width="600" height="600" />
 
-What we see is not a slow decline from the first half to the second half, but an abnormally strong April road performance followed by more uniform performance for the rest of the season.
+This doesn't show a slow decline from the first half to the second half, but rather an abnormally strong April road performance followed by more uniform performance for the rest of the season.
 
-We can use a test to check the signifiance of these differences. We find that the difference between the April Away and the rest of the season is significant,  A quick Chi Squared test suggests the April Away performance is significant at <img src="https://render.githubusercontent.com/render/math?math=\alpha"> = .05, <img src="https://render.githubusercontent.com/render/math?math=\chi^2">(1, N = 1498) = 5.93, p = .015. However, that is it's drawing differently from the rest of the, but the overall Away season χ^2(1, N = 1498) = 5.93, p = .139. 
+We can use a <img src="https://render.githubusercontent.com/render/math?math=\chi^2"> test to check the signifiance of the April-later season winrates; our null hypothesis is that At . We find that the difference between the April Away and the rest of the season is significant,  A quick Chi Squared test suggests the April Away performance is significant at <img src="https://render.githubusercontent.com/render/math?math=\alpha"> = .05, <img src="https://render.githubusercontent.com/render/math?math=\chi^2">(1, N = 1498) = 5.93, p = .015. However, that is it's drawing differently from the rest of the, but the overall Away season χ^2(1, N = 1498) = 5.93, p = .139. 
 
-There doesn't appear to be signfiicant variation in the home data, and a quick χsquared test confirms this χ^2(5, N = 1498) = 4.32, p = .505
-
-<img src="https://render.githubusercontent.com/render/math?math=\chi^2"> test.
-<img src="https://render.githubusercontent.com/render/math?math=\chi^2(1,N = 1498) = 4.32, p = .505">
+(There doesn't appear to be a trend in the Home data, and a quick χsquared test supports this this χ^2(5, N = 1498) = 4.32, p = .505
 
 In any case, this data doesn't support a long term fatigue effect throughout the course of the season; we would expect and 
 
