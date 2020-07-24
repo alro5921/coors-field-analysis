@@ -63,9 +63,8 @@ EDIT: Nah I know this is spurious. I want this because it shows that I'm actuall
 
 ## Batter Adjustment Period
 
-Pitches move differently through the thinner air at Coors Field, which creates differences in the millisecond adjustments batters need to hit the ball. If a Rockies player trains mostly at Coors Field, their adjustments may suddenly not work at sea-level fields without further practice. As an interview with Rockies outfielder Charlie Blackmon puts it:
+Pitches move differently through the thinner air at Coors Field, which creates differences in the millisecond adjustments batters need to hit the ball. If a Rockies player trains mostly at Coors Field, their adjustments may suddenly not work at sea-level fields without further practice. As Rockies outfielder Charlie Blackmon puts it:
 
->A pitch follows a peculiar path in the high elevation of Coors Field, but that is Blackmon’s normal. He knows how the arc of a pitch will perform in his home park. He honed that ability over time while watching tens of thousands of pitches there. But the day Blackmon leaves Denver for any of the 25 other cities in the major leagues, the baseball behaves differently...  
 >“Guys throw 100 \[miles-per-hour\] now, but people can hit it,” Blackmon said. “It’s amazing what big-league players can do if they see it every day and become accustomed to it... So for all those reasons, it’s very hard to have a ball act a certain way at altitude, and then have it act noticeably different the very next day when we go on the road."  
 >[-The Athletic](https://theathletic.com/1649617/2020/03/04/inside-the-rockies-new-idea-to-finally-cure-the-coors-field-hangover) (Paywalled)
 
@@ -76,5 +75,3 @@ If Rockies batters like Blackmon are having initial difficulties when they start
 What I found doesn't particually support the idea of a short term adjustment period, there's no clear upward trend in runs scored as the road trip length continues.
 
 (This test wouldn't catch _long term_ adjustment problems, if playing at Coors Field threw off a Rockies batter's perception where they can't fully adjust with a short-term sea-level practice.)
-
-## Conclusions
