@@ -133,7 +133,7 @@ if __name__ == '__main__':
         save_image("halves")
 
     if generate_m_winrates:
-        fig, ax = plt.subplots(figsize=(10,10))
+        fig, ax = plt.subplots(figsize=(12,10))
         y = retrosheet_data_analysis.home_road_monthly_winrate(col_rs_data.get_all())
         create_monthly_win_rate(ax, y)
         save_image("monthly_winrates")
