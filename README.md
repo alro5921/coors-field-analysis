@@ -12,13 +12,13 @@ Unfortunately, this seems to have a negative impact on Rockies players when they
 
 I worked mainly with schedule data taken from Retrosheet's [Gamelogs Dataset](https://www.retrosheet.org/gamelogs/index.html), which records game-by-game data of every MLB game since 1870. Each row records information about a major league baseball game, such as the runs (points) earned by each team, how many hits and the type of hits each team had, and who the home and visiting teams were. Gamelogs had 63,000 games recorded since the Rockies' debut in 1993 and about 2,100 at Coors Field itself.
 
-Gamelogs is basically comprehensive for the timeframe I'm working with (the Rockies didn't exist in 1890), although the raw data was seperated year by year and lacked headings. My data processing consisted of adding these headings (thankfully with the help of [Retrosheet's own reference](https://www.retrosheet.org/gamelogs/glfields.txt)), merged the yearly data together for multi-year analyses, and added several relevant features that were weirdly absent (like which team won the game)!
+Gamelogs is basically comprehensive for the timeframe I'm working with (the Rockies didn't exist in 1890), although the raw data was seperated year by year and lacked headings. My data processing consisted of adding these headings (thankfully with the help of [Retrosheet's own reference](https://www.retrosheet.org/gamelogs/glfields.txt)), merged the yearly data together for multi-year analyses, and added several relevant features that were weirdly absent (like which team won the game)! The schema wasn't quite suited towards a specific team or stadium analysis - the relevant columns changed depending on whether they were the Home or Away team, and tracking all that proved tedious in paralleized searches -  so I constructed tables for individual teams with the correct corresponding data.
 
 I also restricted my analysis to the 2002 season onwards, as the Rockies implemented several major stadium and ball changes to decrease the runs scored  (most notably a [humidor](https://en.wikipedia.org/wiki/Humidor) room for the baseballs). That cut the working dataset down to about 50,000 games total and 1,450 games at Coors Field.
 
 ## The Effect Size on Road Performance
 
-Every baseball team performs worse at visiting stadiums; the visting team is using unfamiliar accomodations and has been travelling, umpires  the league wide "home field advantage" is roughly 54%. The Colorado Rockies perform especially badly relative to their home performance. Between 2002-2018, they won about 54% of their games at Coors Field but less than 40% of their games away from it!
+Every baseball team (and indeed most sports teams) perform worse at visiting stadiums, whether that's from travel fatigue or unfamiliarity with a stadiums' quirks or unconcious umpire bias. The Major League Baseball "home field advantage" is roughly .54, that is the Home team wins 54% of the time. But the Colorado Rockies perform especially badly relative to their home performance; between 2002-2018, they won about 54% of their games at Coors Field but just 39% of their games away from it!
 
 I compared between teams by taking the ratio of their Home winrate and Away winrate, or how much more likely a team is to win at their Home Field. For example, the league as a whole would have a .54/.46 ~ 1.17 ratio and wins 17% more often at Home.
 
@@ -32,7 +32,7 @@ The Colorado Rockies are a huge outlier, winning almost 40% more games at home t
  
 One hypothesis is that regular high altitude play tires out Rockies players more quickly than those (usually) playing at sea level, which might be further This'd be reflected as a slow decline in performance as the season goes on. Looking at the winrates in the first half of the games in the season and the second half of games in the season.
 
-(Note: I split this analysis into home/away because 56% of Rockies September games are home games, which would be a huge confounder given the Home/Away winrates!)
+(Note: I split this analysis into Home/Away because 56% of Rockies September games are home games, which would be a huge confounder given the Home/Away winrates above!)
 
 <img src="images/halves.png" width="450" height="450" />
 
