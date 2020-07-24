@@ -2,40 +2,27 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
-# activate latex text rendering
+
 import retrosheet_data_analysis
 from retrosheet_pipeline import SeasonalRetrosheetData, TeamRetrosheetData
+from constants import TEAM_CODES
 
 plt.style.use('ggplot')
-
-TEAM_CODES = ['SLN', 'MIN', 'CLE', 'CHA', 'TOR', 'TEX', 'ANA', 'BAL', 'SFN',
-       'PIT', 'SDN', 'ATL', 'COL', 'BOS', 'NYN', 'KCA', 'DET', 'SEA',
-       'HOU', 'LAN', 'CHN', 'TBA', 'NYA', 'OAK', 'MIA', 'CIN',
-       'PHI', 'ARI', 'MIL']
 
 def save_image(name, folder_path = '../images'):
     file_path = folder_path + f'/{name}.png'
     plt.savefig(file_path)
 
-def set_style(ax):
-    pass
-
-def bold_COL_label(labels):
-    return ["{coo"]
-
-def grouped_bar_frame(ax, vals, group_names, legend_names, colors):
+def grouped_bar_frame(ax, vals, group_names, legend_names, colors, width = .2):
     '''Plots framework for a grouped bar plot (to be fine tuned in the scope above)'''
-
     width = .2
-    ind = np.arange(len(vals))
+    ind = np.arange(2)
     arr = np.array(vals)
     ax.bar(ind - width/2, arr[:,0], width, label = legend_names[0], color = colors[0])
     ax.bar(ind + width/2, arr[:,1], width, label = legend_names[1], color = colors[1])
     ax.set_xticks(ind)
     ax.set_xticklabels(group_names)
     ax.legend(prop=dict(size=18))
-    #for i in range(ind):
-    #ind_vals = arr[:,i]
 
 def league_one_bar_frame(ax, team_list, data, title, ylabel):
     '''Plots framework for a simple league-wide comparison bar graph)'''
@@ -47,18 +34,17 @@ def league_one_bar_frame(ax, team_list, data, title, ylabel):
     ax.bar(team_list, data, color = colors)
 
 def line_frame(ax, data, x_labels = None, color = 'purple', label = ''):
+    '''Plots framework for a line graph'''
     if not x_labels:
         x_labels = np.arange(1,len(data) + 1)
-    ax.scatter(x_labels, data, color = color, label = label)
-    ax.plot(x_labels, month_labels, data, color = color, 
+    ax.scatter(x_labels, data, color = color, label = label, s = 90)
+    ax.plot(x_labels, data, color = color, 
             linestyle = "--", alpha = .3)
 
 def month_line_frame(ax, data, color = 'purple', label = ''):
     month_labels = ["April", "May", "June", 
                     "July", "August", "September"]
-    ax.scatter(month_labels, data, color = color, label = label, s = 90)
-    ax.plot(month_labels, data, color = color, 
-            linestyle = "--", alpha = .3)
+    line_frame(ax, data, month_labels, color = color, label = label)
 
 def create_trip_fall_off(ax, data):
     _, away_data = retrosheet_data_analysis.trip_scores(data)
@@ -71,13 +57,13 @@ def create_trip_fall_off(ax, data):
     ax.plot(X, away_data, color = 'purple', 
             linestyle = "--", alpha = .3)
     ax.plot(X, fit_line(X), linestyle = "-", alpha = .8, color = 'k', label = f'Fit, \nb = {b:.3f},\n m = {m:.3f}')
+
     ax.tick_params(axis = 'both', labelsize = 15)
     ax.set_ylabel("Runs Scored", size = 20)
     ax.set_ylim(3.75, 4.25)
     ax.set_yticks(np.arange(3.75, 4.30, step=0.05))
     ax.set_title("Average Runs Scored In Xth Game Of Road Trip", size = 20)
     ax.legend(fontsize = 15)
-
 
 def create_monthly_win_rate(ax, y):
     month_line_frame(ax,y['Away'], color = '#348ABD', label = 'Away')
@@ -89,8 +75,7 @@ def create_monthly_win_rate(ax, y):
     ax.set_ylabel("Winrate", size = 30)
     ax.set_title("Rockies Winrate by Month", size = 30)
 
-
-def create_ha_ratio(ax, seasonal_rs, team_codes = TEAM_CODES):
+def create_home_away_ratio(ax, seasonal_rs, team_codes = TEAM_CODES):
     league_home_road = retrosheet_data_analysis.league_home_road_ratios(seasonal_rs, team_codes)
     league_home_road.sort(key = lambda p: p[1], reverse = True)
     X = [point[0] for point in league_home_road]
@@ -113,7 +98,6 @@ def create_halfs_chart(ax, team_df):
     ax.set_ylabel("Winrate", size = 16)
     ax.set_title("First Half vs Second Half Winrates", size = 30)
 
-#Not to be confused with coooooors
 def create_corrs(ax,seasonal_rs, team_codes = TEAM_CODES):
     league_home_road_corrs = retrosheet_data_analysis.league_monthly_corrs(seasonal_rs, team_codes)
     league_home_road_corrs.sort(key = lambda p: p[1], reverse = True)
@@ -122,36 +106,29 @@ def create_corrs(ax,seasonal_rs, team_codes = TEAM_CODES):
     title = "Correlations of Monthly Home Win% to Away Win%"
     ylabel = "Correlation"
     league_one_bar_frame(ax, X, Y, title, ylabel)
-    # rects = ax.patches
-    # labels = X
-    # for rect, label in zip(rects, labels):
-    #     height = rect.get_height()
-    #     ax.text(rect.get_x() + rect.get_width() / 2, height + .03, label,
-    #     ha='center', va='bottom')
     ax.axhline(y = 0, color = 'k', linestyle = "--")
     ax.set_ylim(-1,1)
 
+
 if __name__ == '__main__':
-    years = list(range(2000,2020))
+    years = list(range(2002,2020))
     seasons_02_19 = SeasonalRetrosheetData(years)
     col_rs_data = TeamRetrosheetData('COL', seasons_02_19)
-
-    #['#E24A33', '#348ABD', '#988ED5', '#777777', '#FBC15E', '#8EBA42', '#FFB5B8']
 
     generate_wl = False
     if generate_wl:
         fig, ax = plt.subplots(figsize=(20,12))
-        create_ha_ratio(ax, seasons_02_19)
+        create_home_away_ratio(ax, seasons_02_19)
         save_image("wl_ratio")
 
-    generate_halves = True
+    generate_halves = False
     if generate_halves:
         col_15_19 = col_rs_data.get_years(list(range(2002,2020)))
         fig, ax = plt.subplots(figsize=(10,10))
         create_halfs_chart(ax, col_15_19)
         save_image("halves")
 
-    generate_m_winrates = False
+    generate_m_winrates = True
     if generate_m_winrates:
         fig, ax = plt.subplots(figsize=(10,10))
         col_all = col_rs_data.get_all()
@@ -166,7 +143,7 @@ if __name__ == '__main__':
         save_image("monthly_corrs")
 
 
-    generate_trip_winrates = True
+    generate_trip_winrates = False
     if generate_trip_winrates:
         fig, ax = plt.subplots(figsize=(12,10))
         col_all = col_rs_data.get_all()

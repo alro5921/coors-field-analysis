@@ -1,16 +1,8 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+
 from retrosheet_pipeline import SeasonalRetrosheetData, TeamRetrosheetData
-
-TEAM_CODES = ['SLN', 'MIN', 'CLE', 'CHA', 'TOR', 'TEX', 'ANA', 'BAL', 'SFN',
-       'PIT', 'SDN', 'ATL', 'COL', 'BOS', 'NYN', 'KCA', 'DET', 'SEA',
-       'HOU', 'LAN', 'CHN', 'TBA', 'NYA', 'OAK', 'MIA', 'CIN',
-       'PHI', 'ARI', 'MIL']
-
-month_dict = {3: "March", 4 : "April", 5 : "May",
-            6: "June", 7 : "July", 8 : "August",
-            9: "September", 10: "October"}
+from constants import TEAM_CODES, MONTH_DICT
 
 def home_road_monthly_winrate(team_df, remove_march_oct = True):
     team_gb_h_month = team_df.groupby([team_df.home, team_df.date.dt.month])
@@ -66,13 +58,22 @@ def trip_scores(team_df):
     gb_trip_length = team_df.groupby([team_df.home, team_df.game_in_trip])
     return gb_trip_length.mean()['score'][True], gb_trip_length.mean()['score'][False]
 
+def from_coors_trip_scores(team_df):
+    gb_gfcoors = team_df.groupby([team_df.game_from_coors])
+    games_out = 8
+    game_range = list(range(1,games_out + 1))
+    return gb_gfcoors.mean()['win'][game_range] ,gb_gfcoors.count()['win'][game_range]
+
 def chi_squared_test():
     pass
 
 if __name__ == '__main__':
-    years = list(range(2000,2019 + 1))
+    years = list(range(2002,2019 + 1))
     seasons_02_19 = SeasonalRetrosheetData(years)
-    
     team_rs_data = seasons_02_19.get_team_rs_data()
-    col_data = team_rs_data["COL"]
-    pass #Was formerly hosting all the graphing, should add simple tests when time
+    df_list = []
+    for team in team_rs_data:
+        df_list.append(team_rs_data[team].get_all())
+    agg = pd.concat(df_list)
+    print(from_coors_trip_scores(agg))
+

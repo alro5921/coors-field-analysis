@@ -1,14 +1,14 @@
 <img src="images/Coors_Pana.jpg" width="700" height="350" />
 
-# Coors Field Altitude Analysis
+# Coors Field Analysis
 
-## Introduction
+## Motivation
 
-Coors Field is the highest elevation Major League Baseball stadium in the league. Coors Field is at 5200 ft elevation, with the next closest being Arizona's Chase Field at just 1100 ft and the vast majority being within 300 ft of sea level. The thinner and drier air has significant effects on how the ball moves, significantly benefitting the batters; Coors Field is consistently the run leader in the MLB.
+Coors Field is the highest elevation Major League Baseball stadium in the league. Coors Field is at 5200 ft elevation, with the next closest being Arizona's Chase Field at just 1100 ft and the vast majority being within 300 ft of sea level. The thinner and drier air significantly impacts how the ball moves, significantly benefitting the batters; Coors Field is consistently the run leader in the MLB.
 
 Unfortunately, this seems to have a negative impact on Rockies players when they play outside of Coors Field. Iternalizing how pitches move at high altitude may not translate well to other MLB parks, and more aggressive batting styles that produce "borderline" hits at Coors may produce outs elsewhere. 
 
-I'd like to investigate two topics; how exactly playing at Coors Field creates these disadvantages for batters on the road, and which batting styles are most and least affected by playing at the high altitude.
+I'd like to investigate two topics; how strongly playing at Coors produces a negative effect on the road, and what exactly is creating these these disadvantages.
 
 
 ### Scope
@@ -23,9 +23,11 @@ Show where balls landed?
 
 ## Data
 
-My schedule data was taken from [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Each row contains aggregate stats from a game. Since the Rockies' initial season, there was about 63,000 games 
+I worked primarily with schedule data taken from Retrosheets, [Retrosheets Gamelogs](https://www.retrosheet.org/gamelogs/index.html). Each row contains aggregate stats from a major league baseball game; each team's score, how many hits and what type of hits each team had, who the home and visiting teams were (and w) umpires and their positioning. These contained about 63,000 games since the Rockies' debut in 1993, or about 2,100 at Coors Field* itself.
 
-I've restricted my analysis to the 2002 onwards, as the Rockies implemented several stadium and ball changes to attempt to decrease the runs scored (most notably a humidor). That cut the games to about 50,000 games and 1,450 games at Coors Field.
+Which is sort of astounding considering multiple 
+
+I've restricted my analysis to the 2002 season onwards, as the Rockies implemented several stadium and ball changes to decrease the runs scored (most notably a humidor). That cut the games to about 50,000 games and 1,450 games at Coors Field.
 
 The data was complete and comprhes. The fields of interest 
 
@@ -37,14 +39,19 @@ Schedule data, which contain the aggregate stats of each game, was taken from [R
 
 With 2002-2018, we have about 2900 games and 1450 games of Away and Home games at Coors.
 
+*Well, 125 of those games were played at the Bronco's Mile High Stadium as Coors Field was being constructed.
+
 <!---
 Statcast pitch-by-pitch data was obtained from Baseball Savant. Statcast has only been tracked to 2008, so any pitch by pitch analysis will be restricted from there.
 -->
 
-## (Loss) Effect Size
-
+## Coors Effect
 >*There is no folly of the beast of the earth which is not infinitely outdone by the madness of Coors \[Field\].*  
 >                                       - Atlanta Braves Commentator
+
+
+
+## How Coors affects Players After They Leave
 
 
 While every baseball team performs worse at visiting stadiums - the league wide "home field advantage" is roughly 54% - the Rockies perform especially badly relative to their home performance. Between 2000-2018, while they've won about 54% of their games at home, they've won just shy of 40% of their games on the road!
@@ -57,9 +64,9 @@ One metric is the  I took the ratio of each team's winrate at home and a team's 
 Graph of ratio vs league av ratio over years?
 -->
 
-## Fatigue
+# Fatigue
  
-One hypothesis is that Rockies players are especially fatigued from playing at altitude, from the environment itself and from frequently transiting between altitude. As a litimus test, let's look at their winrate in the first half* of the season vs the second half:
+One hypothesis is that players are especially fatigued from playing at altitude, from the environment itself and from frequently transiting between altitude. As a litimus test, let's look at their winrate in the first half* of the season vs the second half:
 
 I had initially partitioned this into home/away because 56% of Rockies September games are home games (show this table?) As that'd be an obvious confounder given the huge difference in home/away winrate, I partitioned this into home/away games.
 
@@ -96,13 +103,17 @@ Two problems:
 
 Nonetheless, it's an interesting pattern that seems to at least waggle its eyes at something like a home/away tradeoff.
 
+# Visting Team Fatigue
+The Rockies play most of their games at altitude, but what about teams who aren't used to altitude?
+
 
 ## Adjustment
 
-Pitches move differently at Coors Field, particually curveball and "junk" ball pitches. Players have had difficulty adjusting to sea level pitches:
+Pitches move differently at Coors Field, particually curveball and "junk" ball pitches. Players have had difficulty adjusting to sea level pitches, as Rockies outfielder Charlie Blackmon explains:
 
 >A pitch follows a peculiar path in the high elevation of Coors Field, but that is Blackmon’s normal. He knows how the arc of a pitch will perform in his home park. He honed that ability over time while watching tens of thousands of pitches there. But the day Blackmon leaves Denver for any of the 25 other cities in the major leagues, the baseball behaves differently...  
->“It’s amazing to see what guys can catch up to. Guys throw 100 now, but people can hit it,” Blackmon said. “It’s amazing what big-league players can do if they see it every day and become accustomed to it. It’s amazing what the level of play has become because the competition is getting so good, right? So for all those reasons, it’s very hard to have a ball act a certain way at altitude, and then have it act noticeably different the very next day when we go on the road."
+>“It’s amazing to see what guys can catch up to. Guys throw 100 now, but people can hit it,” Blackmon said. “It’s amazing what big-league players can do if they see it every day and become accustomed to it. It’s amazing what the level of play has become because the competition is getting so good, right? So for all those reasons, it’s very hard to have a ball act a certain way at altitude, and then have it act noticeably different the very next day when we go on the road."  
+>Source: https://theathletic.com/1649617/2020/03/04/inside-the-rockies-new-idea-to-finally-cure-the-coors-field-hangover/ (Paywalled)
 
 <img src="images/road_trip_runs.png" width="720" height="600" />
 
