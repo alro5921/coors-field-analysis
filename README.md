@@ -1,3 +1,10 @@
+<meta name="description" content="Coors Field Analysis" />
+<meta name="title" property="og:title" content="Coors Field Analysis" />
+<meta property="og:type" content="_" />
+<meta name="image" property="og:image" content="images/Coors_Pana.jpg"/>
+<meta name="description" property="og:description" content="_" /><meta name="author" content="Alex Rose" />
+
+
 <img src="images/Coors_Pana.jpg" width="850" height="425" />
 
 # Coors Field Analysis: How Playing At Altitude Affects Road Performance
